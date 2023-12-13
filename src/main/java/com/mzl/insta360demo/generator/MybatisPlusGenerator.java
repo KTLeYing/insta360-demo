@@ -78,7 +78,7 @@ public class MybatisPlusGenerator {
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.mzl.insta360demo.generator");
         // 不需设置这个，不然会在generator目录下生成
-        pc.setController("controller");
+        // pc.setController("controller");
         pc.setService("service");
         pc.setServiceImpl("service.impl");
         pc.setMapper("mapper");

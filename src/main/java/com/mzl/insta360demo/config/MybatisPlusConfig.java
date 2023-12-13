@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @Version: 1.0
  */
 @Configuration
-@MapperScan("com.mzl.insta360.infrastructure.mapper")
+@MapperScan("com.mzl.insta360demo.infrastructure.mapper")
 @EnableTransactionManagement
 public class MybatisPlusConfig {
 
