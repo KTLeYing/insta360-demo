@@ -57,6 +57,36 @@
             <version>1.7</version>
         </dependency>
 
+        <!--RocketMQ-->
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-spring-boot-starter</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
+        <!-- Nacos Discovery and Configuration -->
+<!--        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <version>2.2.6.RELEASE</version> &lt;!&ndash; 替换为您所需的版本 &ndash;&gt;
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <version>2.2.6.RELEASE</version> &lt;!&ndash; 替换为您所需的版本 &ndash;&gt;
+        </dependency>-->
+
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.9.1</version> <!-- 版本号可以根据需要修改 -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
