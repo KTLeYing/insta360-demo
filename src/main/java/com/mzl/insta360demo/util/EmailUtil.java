@@ -96,11 +96,11 @@ public class EmailUtil {
         // 创建一封邮件对象
         MimeMessage mimeMessage = new MimeMessage(session);
         // 设置发件人
-        mimeMessage.setFrom(new InternetAddress(emailFrom, "【抢X3任务】", "UTF-8"));
+        mimeMessage.setFrom(new InternetAddress(emailFrom, "【抢产品任务】", "UTF-8"));
         // 设置收件人
         mimeMessage.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(emailTo, "", "UTF-8"));
         // 设置邮件主题
-        mimeMessage.setSubject("抢X3产品通知", "UTF-8");
+        mimeMessage.setSubject("【抢产品通知】", "UTF-8");
         // 邮箱正文内容（此次使用普通文本的格式内容）
         mimeMessage.setText(content);
         // 设置发送的时间
