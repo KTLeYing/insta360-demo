@@ -30,6 +30,7 @@ public class RobProductJob {
     @PostConstruct
     public void init() throws Exception {
         getCookie4RandCode();
+        login();
         // 启动后立即执行一次
         robProductX3();
         robProductX4();
@@ -89,7 +90,7 @@ public class RobProductJob {
         log.info("抢X4任务执行完成...");
     }
 
-    private static String getProductInfo(String url) throws Exception {
+    private String getProductInfo(String url) throws Exception {
         String cookie = "__clusterSessionCookieName=B7D9FE880BBC329A40B69CCF119FED21; ecology_JSessionid=aaaquFbjkjCfF7fEbmX-y; JSESSIONID=aaaquFbjkjCfF7fEbmX-y; loginidweaver=8108; languageidweaver=7; Systemlanguid=7; __randcode__=" + randCode;
         log.info("抢产品任务，请求获取商品信息, 当前cookie={}", cookie);
 
@@ -112,6 +113,7 @@ public class RobProductJob {
             if ("002".equals(errorCode)){
                 log.warn("抢产品任务, 请求获取商品信息登录信息超时, 重新获取新的cookie(randCode)...");
                 getCookie4RandCode();
+                login();
                 throw new Exception("抢产品任务，请求获取商品信息登录信息超时, 重新获取新的cookie(randCode)");
             }
 
@@ -122,7 +124,7 @@ public class RobProductJob {
         }
     }
 
-    private static void getCookie4RandCode() throws Exception {
+    private void getCookie4RandCode() throws Exception {
         String url = "http://121.15.203.178:9080/rsa/weaver.rsa.GetRsaInfo?ts=" + System.currentTimeMillis();
         Request request = new Request.Builder()
                 .url(url)
@@ -149,6 +151,35 @@ public class RobProductJob {
         log.info("抢产品任务, 请求获取randCode, 更新randCode成功, randCode={}", randCode);
     }
 
+    private void login() throws IOException {
+        RequestBody requestBody = new FormBody.Builder()
+                .add("islanguid", "7")
+                .add("loginid", "gDoWykyGErBFz+SHDHlyuY/RSMMHyWqoQYaH9D5cHuHfB1Eq/8bSPybtntBf6mm+iNQCJtaSzTNGYhMFvAo36KzBVLvnCKlTnYQENUdMidZIqsGvQOZKXAufI078loTu8esfpEoecdWWWulWukh2PGGWhuC7VEnTTo9TJqG9XkAnUIhSEPWR11AWV70vHOWavJa99UK/K5RqewJhoiwRUBHgwMLc//rhHsY1WVDfHRAqHLrOxgcYQZnZJvpLRQEGmqYxzWrqZDrNTjKwnLzK3EiJ0gU6PaeiLgJ7PCmSdNUH4d0dI1+grUbBYbHKvrnJvFewoZn4STgXobGTUGtseA==``RSA``")
+                .add("userpassword", "XLucDb1ukxO73CJ++jCrEZbDogx0hSX0fFkJfNVE2YTLN7Xt/L1gdChq9gWJNu6tiyq+ZlIWdygwDeq0vpxV9SdXUipGT9v0wsEwjzayEsUhHndLJOtTOGz7+MOHHinakjLZ9bjjmUsZzrPsu2tHcbymnVIswe8Qfwd9ZxfzTo/fv+1CFg2GIHcUeL+OcQ304oDj/BUv73A8+A1HMVr8S7uAqNcYRknr+DpqrdeVazC/dy5S10VZd/erch/ryhPpkXFHuhI+xbWamerlvrH4YqCoJUwC4xDzlu/73SVIcqFrj29HaddoUlYahY1Yselext1fYtLV9Fw94iYl9OD1aQ==``RSA``")
+                .add("logintype", "1")
+                .add("isie", "false")
+                .build();
+
+        String url = "http://121.15.203.178:9080/api/hrm/login/checkLogin";
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+
+        try (Response response = CLIENT.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("抢产品任务，登录请求失败，响应体=" + response);
+            }
+
+            String responseStr = response.body().string();
+            log.info("抢产品任务，登录请求响应结果, 响应体={}", responseStr);
+
+        }catch (IOException e) {
+            log.error("抢产品任务，登录请求失败...");
+            throw e;
+        }
+    }
+
     private void handleResponseData(String responseStr, String productFlag, String productType) throws Exception {
         JSONObject responseObj = JSON.parseObject(responseStr);
         List<JSONObject> dataObjs = (List<JSONObject>) responseObj.get("datas");
@@ -160,7 +191,7 @@ public class RobProductJob {
                 log.info("抢产品任务, 执行结果: 产品现存数restNum={}, productFlag={}, productType={}", restNum, productFlag, productType);
 
                 // 每天在指定时间范围内发送邮件通知【10:00~10:02】
-                if (DateUtil.isAtTimeScope(10, 0, 10, 2)){
+                if (DateUtil.isAtTimeScope(15, 8, 15, 10)){
                     String resultMessage = String.format("抢产品任务, 执行结果: productType=%s, restNum=%s, productFlag=%s", productType, restNum, productFlag);
                     EmailUtil.sendEmail(resultMessage);
                 }
