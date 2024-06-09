@@ -191,7 +191,7 @@ public class RobProductJob {
                 log.info("抢产品任务, 执行结果: 产品现存数restNum={}, productFlag={}, productType={}", restNum, productFlag, productType);
 
                 // 每天在指定时间范围内发送邮件通知【10:00~10:02】
-                if (DateUtil.isAtTimeScope(15, 8, 15, 10)){
+                if (DateUtil.isAtTimeScope(10, 0, 10, 2)){
                     String resultMessage = String.format("抢产品任务, 执行结果: productType=%s, restNum=%s, productFlag=%s", productType, restNum, productFlag);
                     EmailUtil.sendEmail(resultMessage);
                 }
