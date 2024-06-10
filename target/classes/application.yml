@@ -1,7 +1,5 @@
 server:
   port: 8888
-  servlet:
-    context-path: /insta360Demo
 
 # 数据源
 spring:
