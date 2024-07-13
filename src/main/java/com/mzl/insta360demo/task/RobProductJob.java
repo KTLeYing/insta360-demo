@@ -27,7 +27,7 @@ public class RobProductJob {
 
     private static String randCode;
 
-    @PostConstruct
+    // @PostConstruct
     public void init() throws Exception {
         getCookie4RandCode();
         login();
@@ -39,7 +39,7 @@ public class RobProductJob {
     /**
      * 抢X3任务，每隔一分钟执行一次
      */
-    @Scheduled(cron = "0 */1 * * * ?")
+    // @Scheduled(cron = "0 */1 * * * ?")
     public void robProductX3(){
         log.info("抢X3任务开始执行...当前randCode={}", randCode);
 
@@ -66,7 +66,7 @@ public class RobProductJob {
     /**
      * 抢X4任务，每隔一分钟执行一次
      */
-    @Scheduled(cron = "0 */1 * * * ?")
+    // @Scheduled(cron = "0 */1 * * * ?")
     public void robProductX4(){
         log.info("抢X4任务开始执行...当前randCode={}", randCode);
 
