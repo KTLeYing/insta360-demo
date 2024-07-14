@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @Description: TODO
+ * @Description: Md5加密工具类
  * @Author: mzl
  */
 public class Md5Util {

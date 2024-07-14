@@ -6,8 +6,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    # password: 105293
-    password: 88888888
+    password: 105293
+    # password: 88888888
     url: jdbc:mysql://localhost:3306/java_stack_study?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
 
   #Redis服务器地址

@@ -1,16 +1,12 @@
 package com.mzl.insta360demo.ratelimit1;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.mzl.insta360demo.exception.BusinessException;
-import com.mzl.insta360demo.ratelimit.RateLimitAspect1;
 import com.mzl.insta360demo.util.IPUtil;
 import com.mzl.insta360demo.util.Md5Util;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Objects;
 
@@ -35,7 +32,7 @@ public class RateLimitAspect {
     private static final Logger log = LoggerFactory.getLogger(RateLimitAspect.class);
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, Serializable> redisTemplate;
 
     public static final String KEY_PREFIX = "rateLimit:";
 
@@ -60,7 +57,7 @@ public class RateLimitAspect {
 
         String luaScript = buildLuaScript();
         RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
-        Number count = (Number) redisTemplate.execute(redisScript, Collections.singletonList(key), String.valueOf(limitCount), String.valueOf(limitPeriod));
+        Number count = redisTemplate.execute(redisScript, Collections.singletonList(key), limitCount, limitPeriod);
 
         log.info("用户={}, 第 {} 次访问接口 {}, 限流参数params={}, 限流加密key={}", limitFlag, count, rateLimit.description(), params, key);
 
