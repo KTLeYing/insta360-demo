@@ -1,0 +1,25 @@
+NACOS_NAMESPACE_ID: 1777faf0-3166-42d5-af50-d7c4a9d30e04
+
+spring:
+  application:
+    name: study-demo-service
+  cloud:
+    nacos:
+      # nacos服务注册
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: ${NACOS_NAMESPACE_ID}
+        group: study-demo
+      # nacos配置中心
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: ${NACOS_NAMESPACE_ID}
+        group: study-demo
+        file-extension: yml
+        # 扩展配置
+        extension-configs:
+          - data-id: common.yml
+            group: study-demo
+            refresh: true
+
+
