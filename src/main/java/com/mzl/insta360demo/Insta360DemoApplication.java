@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@EnableDiscoveryClient
-@RefreshScope
+//@EnableDiscoveryClient
+//@RefreshScope
 public class Insta360DemoApplication {
 
     public static void main(String[] args) {
