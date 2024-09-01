@@ -1,14 +1,58 @@
 server:
   port: 9999
 
-# 数据源
 spring:
+  # 数据源
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 105293
     # password: 88888888
     url: jdbc:mysql://localhost:3306/java_stack_study?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        # 手动确认消息
+        acknowledge-mode: manual
+        # 拒绝的消息不重新入队
+        default-requeue-rejected: false
+
+
+#  cloud:
+#    stream:
+#      binders:
+#        # 自定义RabbitMQ绑定
+#        rabbitBinder:
+#          type: rabbit  #消息组件类型
+#          environment:
+#            spring: ${spring.rabbitmq}
+#      bindings:
+#        # 生产者通道
+#        my_rabbitmq_test_output:
+#          destination: topic_my_rabbitmq_test
+#        # 消费者通道
+#        my_rabbitmq_test_input:
+#          group: group_my_rabbitmq_test
+#          destination: topic_my_rabbitmq_test
+#          maxAttempts: 3
+#
+#      # RabbitMQ的特殊配置
+#      rabbit:
+#        bindings:
+#          # 消费者配置
+#          my_rabbitmq_test_input:
+#            consumer:
+#              #手动提交ack
+#              acknowledgeMode: MANUAL
+#              # 消息消费次数达到 maxAttempts,之后丢到死信队列
+#              autoBindDlq: true
+#              # 死信的超时时间,毫秒,设置成1周
+#              dlqTtl: 604800000
 
   #Redis服务器地址
   redis:
@@ -54,6 +98,5 @@ rocketmq:
   name-server: localhost:9876
   producer:
     group: test-producer-group
-
 
 
