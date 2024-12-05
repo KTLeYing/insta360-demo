@@ -1,5 +1,7 @@
 package com.mzl.insta360demo.util;
 
+import cn.hutool.crypto.SecureUtil;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -37,5 +39,12 @@ public class Md5Util {
         String md5Hash = generateMD5(input);
         System.out.println("MD5 Hash of '" + input + "' is: " + md5Hash);
     }
+
+    public static void main1(String[] args) {
+        String input = "HelloWorld";
+        String md5Hash = SecureUtil.md5(input);
+        System.out.println("MD5 哈希值：" + md5Hash);
+    }
+
 
 }
