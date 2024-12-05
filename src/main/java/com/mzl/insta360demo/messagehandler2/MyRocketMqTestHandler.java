@@ -19,8 +19,8 @@ import org.springframework.stereotype.Component;
  * messageModel：CLUSTERING(集群模式): 一条消息只能被一个消费者实例消费，适合负载均衡；BROADCASTING(广播模式): 每个消费者实例都会收到消息, 即一条消息可以被每个消费者实例处理【默认CLUSTERING】
  */
 @Component
-@RocketMQMessageListener(topic = RocketMessageTopic.MY_ROCKETMQ_TEST_TOPIC, consumerGroup = "my-rocketmq-test-consumer-group"
-        , consumeMode = ConsumeMode.CONCURRENTLY, messageModel = MessageModel.CLUSTERING)
+//@RocketMQMessageListener(topic = RocketMessageTopic.MY_ROCKETMQ_TEST_TOPIC, consumerGroup = "my-rocketmq-test-consumer-group"
+//        , consumeMode = ConsumeMode.CONCURRENTLY, messageModel = MessageModel.CLUSTERING)
 public class MyRocketMqTestHandler implements RocketMQListener<String> {
 
     private static final Logger log = LoggerFactory.getLogger(MyRocketMqTestHandler.class);

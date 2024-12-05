@@ -52,15 +52,13 @@ public class RateLimitAspect {
         String paramsMd5 = Md5Util.generateMD5(params);
         String key = KEY_PREFIX + paramsMd5;
 
-        // int limitCount = rateLimit.count();
-        int limitCount = 10;
+        int limitCount = rateLimit.count();
         // 时间转换为秒，即缓存过期时间
-        // long limitPeriod = rateLimit.unit().toSeconds(rateLimit.period());
-        int limitPeriod = 1;
+        long limitPeriod = rateLimit.unit().toSeconds(rateLimit.period());
 
         String luaScript = buildLuaScript();
         RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
-        Number count = redisTemplate.execute(redisScript, Collections.singletonList(key), 10, 1);
+        Number count = redisTemplate.execute(redisScript, Collections.singletonList(key), limitCount, limitPeriod);
 
         log.info("用户={}, 第 {} 次访问接口 {}, 限流参数params={}, 限流加密key={}", limitFlag, count, rateLimit.description(), params, key);
 

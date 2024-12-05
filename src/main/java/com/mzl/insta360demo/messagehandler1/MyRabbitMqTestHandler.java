@@ -23,7 +23,7 @@ public class MyRabbitMqTestHandler {
 
     private static final Logger log = LoggerFactory.getLogger(MyRabbitMqTestHandler.class);
 
-    @RabbitListener(queues = {MyRabbitmqTestMqConfig.MY_RABBITMQ_TEST_QUEUE})
+    // @RabbitListener(queues = {MyRabbitmqTestMqConfig.MY_RABBITMQ_TEST_QUEUE})
     public void receive(Message<String> message,
                         @Header(name = AmqpHeaders.CHANNEL, required = false) Channel channel,
                         @Header(AmqpHeaders.DELIVERY_TAG) Long deliveryTag) throws Exception {

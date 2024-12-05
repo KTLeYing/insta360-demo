@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @Author: mzl
  */
 @Configuration
-public class RedisConfigure {
+public class RedisConfig {
 
     @Bean
     public RedisTemplate<String, Serializable> limitRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
@@ -25,4 +25,5 @@ public class RedisConfigure {
 
         return template;
     }
+
 }

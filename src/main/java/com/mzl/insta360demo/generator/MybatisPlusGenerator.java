@@ -14,18 +14,16 @@ import org.apache.commons.lang.StringUtils;
 import java.util.Scanner;
 
 /**
- * @ClassName: MybatisPlusGenerator
  * @Description: MybatisPlus生成器
  * @Author: mzl
- * @CreateDate: 2023/12/4 13:28
- * @Version: 1.0
  */
 public class MybatisPlusGenerator {
 
     /**
-     * <p>
      * 读取控制台内容
-     * </p>
+     *
+     * @param tip 输入的提示
+     * @return 输入处理表
      */
     public static String scanner(String tip) {
         Scanner scanner = new Scanner(System.in);
@@ -57,7 +55,6 @@ public class MybatisPlusGenerator {
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        // 等等路径均类似
         gc.setOutputDir(System.getProperty("user.dir" ) + "/src/main/java");
         gc.setAuthor("mzl");
         // 生成之后是否打开资源管理器
@@ -70,15 +67,12 @@ public class MybatisPlusGenerator {
         gc.setIdType(IdType.AUTO);
         // 设置Date类型 只使用java.util.date代替
         gc.setDateType(DateType.ONLY_DATE);
-        // 实体属性 Swagger2 注解
-        gc.setSwagger2(true);
         mpg.setGlobalConfig(gc);
 
         // 包配置(自己根据实际项目路径修改一下即可)
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.mzl.insta360demo.generator");
-        // 不需设置这个，不然会在generator目录下生成
-        // pc.setController("controller");
+        pc.setController("controller");
         pc.setService("service");
         pc.setServiceImpl("service.impl");
         pc.setMapper("mapper");
@@ -98,9 +92,9 @@ public class MybatisPlusGenerator {
         strategy.setRestControllerStyle(true);
         // 驼峰转连字符
         strategy.setControllerMappingHyphenStyle(true);
-
-        // 忽略表中生成实体类的前缀
         mpg.setStrategy(strategy);
+
+        // 执行生成代码
         mpg.execute();
     }
 
